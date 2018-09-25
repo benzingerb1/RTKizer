@@ -2,7 +2,6 @@ var wordMap = {
 'word': '言葉',
 'tree': '木',
 'walk': '歩く'
-
 };
 
 var regex = new RegExp('\\b(' + Object.keys(wordMap).join('|') + ')\\b', 'ig');
@@ -26,6 +25,8 @@ while (treeWalker.nextNode())
 /* iterate text nodes and modify in place */
 for (var i = 0, len = textNodes.length; i < len; i++)
 {
+	// using a callback function as a paramter:
+	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replace#Specifying_a_function_as_a_parameter
     textNodes[i].nodeValue = textNodes[i].nodeValue.replace(regex,
         function(match)
         {
