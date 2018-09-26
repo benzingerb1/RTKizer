@@ -4,6 +4,8 @@ var wordMap = {
 'walk': '歩く'
 };
 
+console.log("content.js is here");
+
 var regex = new RegExp('\\b(' + Object.keys(wordMap).join('|') + ')\\b', 'ig');
 
 /* tree walker */
