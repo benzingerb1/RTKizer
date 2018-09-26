@@ -4,10 +4,11 @@
   "version": "1.0.0",
   "content_scripts": [
 	  {
+    "css": ["tooltip.css"],
 		"matches":[
 		"<all_urls>"
 		],
-		"js": ["content2.js"]
+		"js": ["content.js"]
 	  }
   ]
 }
