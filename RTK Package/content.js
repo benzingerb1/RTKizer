@@ -129,6 +129,9 @@ for (var i = 0, len = textNodes.length; i < len; i++){
   console.log(textNodes[i].node)
 
   // use String.replace() callback function to swap out words in wordMap
+  // Node.nodeValues is not changing innerHTML when we add span tags
+  // have to rework it to manually adjust each node's element
+  // https://stackoverflow.com/questions/26030209/html-and-js-surrounding-every-word-in-the-document-with-a-span-tag
   textNodes[i].innerHTML = textNodes[i].nodeValue.replace(regex,
     function(match){
       console.log("the name of the match: " + match);
