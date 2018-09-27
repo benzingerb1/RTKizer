@@ -44,7 +44,7 @@ var wordMap = {
   "rule" : "則",
   "cut" : "切",
   "early" : "早",
-  "TRUE" : "真",
+  "true" : "真",
   "straightaway" : "直",
   "oneself" : "自",
   "separate" : "別",
@@ -103,6 +103,8 @@ var wordMap = {
 
 };
 // add the CSS to the page
+// apparently this is deprecated, docs say "please use runtime.getUrl"
+// https://developer.chrome.com/extensions/runtime#method-getURL
 var a = chrome.extension.getURL("tooltip.css");
 var linkNode = document.createElement("LINK");
 var textNode = document.createTextNode('<link rel="stylesheet" type="text/css" href="' + a + '" >');
@@ -116,15 +118,14 @@ var startTime = performance.now()
 var wordMapJoin = Object.keys(wordMap).join('|');
 var regex = new RegExp('\\b(' + wordMapJoin + ')\\b', 'ig');
 
-// create a tree tree walker
+// create a tree tree walker and initialize text nodes
 var treeEnt = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-// initialize text nodes
 var textNodes = [];
 while (treeEnt.nextNode()){
   textNodes.push(treeEnt.currentNode);
 }
 
-// iterate over the text nodes and modify in place
+// iterate over the text nodes 
 for (var i = 0, len = textNodes.length; i < len; i++){
   if (textNodes[i].nodeValue.match(regex) === null) continue;
   // https://stackoverflow.com/questions/26030209/html-and-js-surrounding-every-word-in-the-document-with-a-span-tag
@@ -135,13 +136,9 @@ for (var i = 0, len = textNodes.length; i < len; i++){
       var toolTipInsert = "<span class='tooltip'>" + kanjiMatch + "<span class='tooltiptext'>" + match + "</span></span>";
       return toolTipInsert;
     });
-  console.log("textnode: " + textNodes[i].nodeValue);
-  console.log("replacer: " + replacer);
 
   var template = document.createElement('template');
   template.innerHTML = replacer;
-  console.log(typeof template);
-  console.log(template.content);
 
   textNodes[i].parentNode.insertBefore(template.content, textNodes[i]);
   textNodes[i].parentNode.removeChild(textNodes[i]);
