@@ -1,5 +1,4 @@
 var wordMap = {
-
   "one" : "一",
   "two" : "二",
   "three" : "三",
@@ -59,7 +58,7 @@ var wordMap = {
   "fortune-telling" : "占",
   "complete" : "了",
   "stomach" : "胃",
-  "Dr." : "博",
+  "dr\\." : "博",
   "round" : "丸",
   "sword" : "刀",
   "blade" : "刃",
@@ -93,23 +92,14 @@ var wordMap = {
   "fish guts" : "乙",
   "ladle" : "勺",
   "cavity" : "孔",
-  "I" : "吾",
+  "i" : "吾",
   "companion" : "朋",
   "prosperous" : "昌",
   "rising sun" : "旭",
   "nightbreak" : "旦",
   "span" : "亘",
   "only" : "只",
-
 };
-// add the CSS to the page
-// apparently this is deprecated, docs say "please use runtime.getUrl"
-// https://developer.chrome.com/extensions/runtime#method-getURL
-var a = chrome.extension.getURL("tooltip.css");
-var linkNode = document.createElement("LINK");
-var textNode = document.createTextNode('<link rel="stylesheet" type="text/css" href="' + a + '" >');
-linkNode.appendChild(textNode);
-document.head.appendChild(linkNode);
 
 // set a timer for testing
 var startTime = performance.now()
@@ -131,9 +121,12 @@ for (var i = 0, len = textNodes.length; i < len; i++){
   // https://stackoverflow.com/questions/26030209/html-and-js-surrounding-every-word-in-the-document-with-a-span-tag
   replacer = textNodes[i].nodeValue.replace(regex,
     function(match){
-      console.log("the name of the match: " + match);
+      // short this function
       var kanjiMatch = wordMap[match.toLowerCase()];
-      var toolTipInsert = "<span class='tooltip'>" + kanjiMatch + "<span class='tooltiptext'>" + match + "</span></span>";
+      console.log("the name of the match: " + match + ": " + kanjiMatch);
+      return wordMap[match.toLowerCase()];
+      // keeping this here to read later, dead end code
+      var toolTipInsert = "kanjiMatch";
       return toolTipInsert;
     });
 
