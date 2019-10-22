@@ -11,7 +11,7 @@ Chrome extension for changing Heisig RTK keywords to Japanese kanji
 
 ### Known issues
 
-+ Finding text that has the word `true` on the webpaged translates to `undefined`
++ Finding text that has the word `true` on the webpage translates to `undefined`
 
 + Iñupiak from the wikipedia page on trees is evaulating to undefined
 
@@ -21,7 +21,7 @@ Chrome extension for changing Heisig RTK keywords to Japanese kanji
 
 + `I'm` returns undefined
 
-+ text inside tables doesn't trasnlate
++ text inside tables doesn't translate
 
 + I googled the word "apparently" and it messed up google really bad and forced it to reload repeatedly
 possibly from adding text nodes to search box?  
