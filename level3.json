@@ -1,4 +1,4 @@
-var wordMap = {
+{
   "one": "一",
   "two": "二",
   "three": "三",
@@ -612,44 +612,3 @@ var wordMap = {
   "send off": "送",
   "connection": "関"
 }
-
-// set a timer for testing
-var startTime = performance.now()
-
-// join the words in the word map by "|" for RegExp
-var wordMapJoin = Object.keys(wordMap).join('|');
-var regex = new RegExp('\\b(' + wordMapJoin + ')\\b', 'ig');
-
-// create a tree tree walker and initialize text nodes
-var treeEnt = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
-var textNodes = [];
-while (treeEnt.nextNode()){
-  textNodes.push(treeEnt.currentNode);
-}
-
-// iterate over the text nodes 
-for (var i = 0, len = textNodes.length; i < len; i++){
-  if (textNodes[i].nodeValue.match(regex) === null) continue;
-  // https://stackoverflow.com/questions/26030209/html-and-js-surrounding-every-word-in-the-document-with-a-span-tag
-  replacer = textNodes[i].nodeValue.replace(regex,
-    function(match){
-      // short this function
-      var kanjiMatch = wordMap[match.toLowerCase()];
-      console.log("the name of the match: " + match + ": " + kanjiMatch);
-      return wordMap[match.toLowerCase()];
-      // keeping this here to read later, dead end code
-      var toolTipInsert = "kanjiMatch";
-      return toolTipInsert;
-    });
-
-  var template = document.createElement('template');
-  template.innerHTML = replacer;
-
-  textNodes[i].parentNode.insertBefore(template.content, textNodes[i]);
-  textNodes[i].parentNode.removeChild(textNodes[i]);
-
-}
-
-// print the execution time to console
-var executionTime = performance.now() - startTime;
-console.log("mapped words in " + executionTime + " ms");
